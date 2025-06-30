@@ -5,7 +5,7 @@ import RadioField from "../reusableComponents/radioField";
 export default function Form() {
   const [registierUser, setRegisterUser] = useState(utilis);
   const [registierUserLists, setRegisterUserLists] = useState([]);
-  
+
   const options = [
     {
       label: "Male",
@@ -43,7 +43,7 @@ export default function Form() {
   };
 
   return (
-    <div className="container">
+    <div className="container" style={{ padding: "20px" }}>
       <div className="row">
         {/* left side */}
         <div className="col-sm-6">

@@ -6,7 +6,10 @@ function App() {
     <div>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-sm-4">1</div>
+          <div
+            className="col-sm-2 col-md-4"
+            style={{ backgroundColor: "#A4CCD9", height: "100vh" }}
+          ></div>
           <div className="col-sm-8">
             <h1 style={{ borderBottom: "3px solid #3F51B5", width: "43px" }}>
               Registration
