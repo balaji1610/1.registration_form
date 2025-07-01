@@ -10,10 +10,11 @@ function App() {
             className="col-sm-2 col-md-4"
             style={{ backgroundColor: "#A4CCD9", height: "100vh" }}
           ></div>
-          <div className="col-sm-8">
+          <div className="col-sm-8" style={{ padding: "20px" }}>
             <h1 style={{ borderBottom: "3px solid #3F51B5", width: "43px" }}>
               Registration
             </h1>
+
             <Form />
           </div>
         </div>
