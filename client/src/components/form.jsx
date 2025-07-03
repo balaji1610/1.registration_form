@@ -6,7 +6,7 @@ import RadioField from "../reusableComponents/radioField";
 export default function Form() {
   const [registierUser, setRegisterUser] = useState(utilis);
   const [registierUserLists, setRegisterUserLists] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(false);
   const options = [
     {
       label: "Male",
@@ -37,10 +37,30 @@ export default function Form() {
     });
   };
 
-  const handleOnSubmit = () => {
-    setRegisterUserLists((prev) => {
-      return [...prev, registierUser];
-    });
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:5000/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(registierUser),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to register user");
+      }
+      const result = await response.json();
+      alert(result.message);
+      if (response.status === 200) {
+        setIsLoading(!isLoading);
+      }
+
+      // Success message or response
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
 
   return (

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 export default function UserList() {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  
   const fetchApi = async () => {
     try {
       const response = await fetch("http://localhost:5000");
@@ -11,7 +12,9 @@ export default function UserList() {
       }
       const data = await response.json();
       setIsLoading(!isLoading);
-      setUsers(data);
+      setUsers((prev) => {
+        return [...data, prev];
+      });
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
       setIsLoading(false);

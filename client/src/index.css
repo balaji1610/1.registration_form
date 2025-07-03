@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.bg_deskotp {
+  background-color: #a4ccd9;
+  height: 100vh;
+}
+
+@media (min-width: 350px) and (max-width: 768px) {
+  .bg_deskotp {
+    background-color: #a4ccd9;
+    height: 10vh;
+  }
+}

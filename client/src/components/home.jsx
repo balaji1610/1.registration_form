@@ -11,10 +11,7 @@ function Home() {
     <div>
       <div className="container-fluid">
         <div className="row">
-          <div
-            className="col-sm-2 col-md-4"
-            style={{ backgroundColor: "#A4CCD9", height: "100vh" }}
-          ></div>
+          <div className="col-sm-2 col-md-4 bg_deskotp"></div>
           <div className="col-sm-8" style={{ padding: "20px" }}>
             <div className="row">
               <div className="col-sm-4">
