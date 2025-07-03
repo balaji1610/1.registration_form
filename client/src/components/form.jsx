@@ -7,6 +7,7 @@ export default function Form() {
   const [registierUser, setRegisterUser] = useState(utilis);
   const [registierUserLists, setRegisterUserLists] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [getGenderValue, setGetGenderValue] = useState("");
   const options = [
     {
       label: "Male",
@@ -32,6 +33,7 @@ export default function Form() {
 
   const handleRadioChange = (e) => {
     const { value } = e.target;
+    setGetGenderValue(value);
     setRegisterUser((prev) => {
       return { ...prev, gender: value };
     });
@@ -118,7 +120,11 @@ export default function Form() {
       <div className="row">
         <div className="col-sm-12">
           Gender
-          <RadioField options={options} onChange={handleRadioChange} />
+          <RadioField
+            options={options}
+            onChange={handleRadioChange}
+            getGenderValue={getGenderValue}
+          />
         </div>
       </div>
       <div className="row">

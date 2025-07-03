@@ -1,5 +1,7 @@
+import React from "react";
 export default function RadioField(props) {
-  const { options, onChange } = props;
+  const { options, onChange, getGenderValue } = props;
+
   return (
     <div class="form-check d-flex">
       {options.map((option, index) => {
@@ -9,6 +11,7 @@ export default function RadioField(props) {
               class="form-check-input"
               type="radio"
               value={option.name}
+              checked={getGenderValue === option.name}
               onChange={onChange}
             />
             <label class="form-check-label" for="flexRadioDefault1">
