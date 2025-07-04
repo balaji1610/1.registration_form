@@ -84,9 +84,10 @@ app.post("/register", (req, res) => {
       ],
       (err, result) => {
         if (err) {
-          console.error("Error inserting user:", err);
-          return res.status(500).send("Error saving user");
+          console.error("Error inserting user:", err.message);
+          return res.status(500).json({ message: err.message });
         }
+
         console.log("User inserted with ID:", result.insertId);
         res.status(200).json({
           message: "Registration successful",

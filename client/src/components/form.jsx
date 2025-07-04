@@ -2,7 +2,7 @@ import utilis from "../utilis";
 import { useState } from "react";
 import InputField from "../reusableComponents/inputField";
 import RadioField from "../reusableComponents/radioField";
-
+import { ToastContainer, toast } from "react-toastify";
 export default function Form() {
   const [registierUser, setRegisterUser] = useState(utilis);
   const [registierUserLists, setRegisterUserLists] = useState([]);
@@ -11,15 +11,15 @@ export default function Form() {
   const options = [
     {
       label: "Male",
-      name: "Male",
+      value: "Male",
     },
     {
       label: "Female",
-      name: "Female",
+      value: "Female",
     },
     {
       label: "Prefer not to say",
-      name: "Prefer not to say",
+      value: "Prefer not to say",
     },
   ];
 
@@ -31,8 +31,9 @@ export default function Form() {
     });
   };
 
-  const handleRadioChange = (e) => {
-    const { value } = e.target;
+  const handleRadioChange = (event) => {
+    const { value } = event.target;
+
     setGetGenderValue(value);
     setRegisterUser((prev) => {
       return { ...prev, gender: value };
@@ -43,6 +44,7 @@ export default function Form() {
     e.preventDefault();
 
     try {
+      setIsLoading(true);
       const response = await fetch("http://localhost:5000/register", {
         method: "POST",
         headers: {
@@ -50,15 +52,20 @@ export default function Form() {
         },
         body: JSON.stringify(registierUser),
       });
-      if (!response.ok) {
-        throw new Error("Failed to register user");
-      }
+
       const result = await response.json();
-      alert(result.message);
+
       if (response.status === 200) {
-        setIsLoading(!isLoading);
+        setIsLoading(false);
+        toast.success(result.message || "User registered successfully!");
       }
 
+      if (!response.ok) {
+        setIsLoading(false);
+        toast.error(result.message);
+      }
+      setRegisterUser(utilis); // Reset the form fields after submission
+      setGetGenderValue("");
       // Success message or response
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -75,6 +82,7 @@ export default function Form() {
             placeholder="Enter Your Name"
             name="fullName"
             type="text"
+            value={registierUser.fullName}
             onChange={handleChange}
           />
           <InputField
@@ -82,6 +90,7 @@ export default function Form() {
             placeholder="Enter your email"
             name="email"
             type="text"
+            value={registierUser.email}
             onChange={handleChange}
           />
           <InputField
@@ -89,6 +98,7 @@ export default function Form() {
             placeholder="Enter your email"
             name="password"
             type="password"
+            value={registierUser.password}
             onChange={handleChange}
           />
         </div>
@@ -99,6 +109,7 @@ export default function Form() {
             placeholder="Enter Your Username"
             name="userName"
             type="text"
+            value={registierUser.userName}
             onChange={handleChange}
           />
           <InputField
@@ -106,6 +117,7 @@ export default function Form() {
             placeholder="Enter Your number"
             name="phoneNumber"
             type="tel"
+            value={registierUser.phoneNumber}
             onChange={handleChange}
           />
           <InputField
@@ -113,6 +125,7 @@ export default function Form() {
             placeholder="Confirm Your password"
             name="confirmPassword"
             type="password"
+            value={registierUser.confirmPassword}
             onChange={handleChange}
           />
         </div>
@@ -123,6 +136,7 @@ export default function Form() {
           <RadioField
             options={options}
             onChange={handleRadioChange}
+            name="gender"
             getGenderValue={getGenderValue}
           />
         </div>
@@ -135,8 +149,22 @@ export default function Form() {
               type="button"
               onClick={handleOnSubmit}
             >
-              Register
+              {" "}
+              {isLoading ? (
+                <div
+                  class="spinner-border"
+                  role="status"
+                  style={{
+                    cursor: "not-allowed",
+                  }}
+                >
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              ) : (
+                "Register"
+              )}
             </button>
+            <ToastContainer />
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React from "react";
 export default function RadioField(props) {
-  const { options, onChange, getGenderValue } = props;
+  const { options, onChange, getGenderValue, name } = props;
 
   return (
     <div class="form-check d-flex">
@@ -10,8 +10,9 @@ export default function RadioField(props) {
             <input
               class="form-check-input"
               type="radio"
-              value={option.name}
-              checked={getGenderValue === option.name}
+              value={option.value}
+              name={name}
+              checked={option.value === getGenderValue}
               onChange={onChange}
             />
             <label class="form-check-label" for="flexRadioDefault1">
