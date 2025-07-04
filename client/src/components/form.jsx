@@ -5,7 +5,6 @@ import RadioField from "../reusableComponents/radioField";
 import { ToastContainer, toast } from "react-toastify";
 export default function Form() {
   const [registierUser, setRegisterUser] = useState(utilis);
-  const [registierUserLists, setRegisterUserLists] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [getGenderValue, setGetGenderValue] = useState("");
   const options = [
